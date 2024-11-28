@@ -7,8 +7,17 @@ let User = userModel.User;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home',
-  displayName:req.user ? req.user.displayName:''});
+  if(!req.user)
+  {
+    res.render('Auth/login',{
+      title:'Login',
+      message:req.flash('loginMessage'),
+      displayName:req.user ? req.user.displayName:''
+    })
+  }
+  else {
+    return res.redirect('/home');
+  }
 });
 
 /* GET home page. */
