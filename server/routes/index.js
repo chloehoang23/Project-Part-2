@@ -6,14 +6,10 @@ let userModel = require('../model/User')
 let User = userModel.User;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req,res,next){
   if(!req.user)
   {
-    res.render('Auth/login',{
-      title:'Login',
-      message:req.flash('loginMessage'),
-      displayName:req.user ? req.user.displayName:''
-    })
+    res.redirect('/login');
   }
   else {
     return res.redirect('/home');
@@ -28,7 +24,7 @@ router.get('/home', function(req, res, next) {
 
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
-  res.render('index', { title: 'Contact Us',
+  res.render('contact', { title: 'Contact Us',
   displayName:req.user ? req.user.displayName:'' });
 });
 // get and post router of login.ejs
@@ -42,7 +38,7 @@ router.get('/login', function(req,res,next){
     })
   }
   else {
-    return res.redirect('/');
+    return res.redirect('/home');
   }
 })
 router.post('/login',function(req,res,next){
